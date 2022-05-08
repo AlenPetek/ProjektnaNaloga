@@ -10,3 +10,11 @@
 čemer sami koordinati predstavljajo Google maps koordinate (jih lahko kar prilepiš v Google maps). Ti isti koordinati
 pa pri cesti pomenijo v bistvo 'črta od in črta do' pri čemer še je podana širina in izbočenost ceste.
 
+#Koda GUI
+
+Ustvaru sem osnovni template za najino spletno stran
+
+To do:
+1. Nagruntat prikaz zemljevida
+2. Generiranje tabele za živali
+3. Login/registracija
