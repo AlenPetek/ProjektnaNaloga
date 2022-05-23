@@ -3,15 +3,29 @@
         <title>Login</title>
 		<link rel="stylesheet" href="css/style.css">
     </head>
+	<style>
+	.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.image1 {
+  position: relative;
+  top: 0;
+  left: 0;
+  border: 1px red solid;
+}
+.image2 {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  border: 1px green solid;
+}
+	</style>
     <body>
-        <h2>Login Page</h2>
-        <a href="index.php">Click here to go back<br/><br/>
-        <form action="checklogin.php" method="POST">
-           Enter Username: <input type="text" 
-           name="username" required="required" /> <br/>
-           Enter password: <input type="password" 
-           name="password" required="required" /> <br/>
-           <input type="submit" value="Login"/>
-        </form>
+       <div class="parent">
+  <img class="image1" src="https://via.placeholder.com/50" />
+  <img class="image2" src="https://via.placeholder.com/100" />
+</div>
     </body>
 </html>
