@@ -105,8 +105,8 @@
 					<div class="popup" onclick="popup('.$j.')" style="position: absolute; top: '.$i->x.'px; left: '.$i->y.'px;">
 						<img class="img2" src="images/marker.png" width="80px">
 						<span class="popuptext" id="myPopup'.$j.'">
-						<h3>'.$i->zival.'</h3>
-						'.$i->opis.'
+							<h3>'.$i->zival.'</h3>
+							'.$i->opis.'
 						</span>
 					</div>';
 				echo $img;
