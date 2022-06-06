@@ -9,12 +9,6 @@
 		table, th, td {
 			border:1px solid black;
 		}
-		.zemljevid {
-				position: relative;
-		}
-		.img1 {
-			position: relative;
-		}
 		.popup {
 			position: relative;
 			display: inline-block;
@@ -75,23 +69,47 @@
 	</script>
 	
     <body>
+		<?php
+			$conn = new mysqli('localhost', 'root', 'test1234', 'mydb');
+			$conn->set_charset("UTF8");
+			
+			function validate_login($username, $password){
+				global $conn;
+				$upo = mysqli_real_escape_string($conn, $username);
+				$baza = "SELECT * FROM mydb.uporabniki WHERE uporabnisko_ime='$upo' AND geslo=PASSWORD('$password')";
+				$res = $conn->query($baza);
+				if($user_obj = $res->fetch_object()){
+					return $user_obj->admin;
+				}
+				return -1;
+			}
+			if(isset($_POST["poslji"]) && validate_login($_POST["upo"], $_POST["geslo"])!=-1){
+				if(validate_login($_POST["upo"], $_POST["geslo"])==1){
+					header("Location: admin.php");
+					die();
+				}
+				if(validate_login($_POST["upo"], $_POST["geslo"])==0){
+					header("Location: user.php");
+					die();
+				}
+			}
+		?>
+	
         <div class="topnav">
-			<a href="login.php" style="float: right">Register</a>
+			<a href="register.php" style="float: right">Register</a>
 			<div class="login-container">
-			<form action="/action_page.php">
-				<input type="text" placeholder="Username" name="username">
-				<input type="text" placeholder="Password" name="psw">
-				<button type="submit">Login</button>
+			<form method="POST">
+				<input type="text" placeholder="Username" name="upo">
+				<input type="text" placeholder="Password" name="geslo">
+				<button type="submit" name="poslji" value="Pošlji">Login</button>
 			</form>
-		  </div>
+			</div>
 		</div>
 		
-		<div class="zemljevid" width="100%" height="2000" style="border:2px solid black; margin-top:30px">
-			<img class="img1" src="images/maribor.png" width="100%">
+		<div id="divid" style="position: relative; border:2px solid black; margin-top:30px"><img class="img1" src="images/maribor.png" width="86%" style="position: relative;"></div>
 			<?php
 			function f1(){
-				$conn = new mysqli('localhost', 'root', 'test1234', 'mydb');
-				$conn->set_charset("UTF8");
+				global $conn;
 				$x = $conn->query("SELECT * FROM Zivali WHERE x IS NOT NULL AND y IS NOT NULL");
 				$tab = array();
 				while($oglas = $x->fetch_object()){
@@ -101,6 +119,7 @@
 			}
 			$j=1;
 			foreach(f1() as $i){
+				global $conn;
 				$img='
 					<div class="popup" onclick="popup('.$j.')" style="position: absolute; top: '.$i->x.'px; left: '.$i->y.'px;">
 						<img class="img2" src="images/marker.png" width="80px">
@@ -125,8 +144,7 @@
 				</tr>
 		<?php
 			function f2(){
-				$conn = new mysqli('localhost', 'root', 'test1234', 'mydb');
-				$conn->set_charset("UTF8");
+				global $conn;
 				$x = $conn->query("SELECT * FROM Zivali");
 				$tab = array();
 				while($oglas = $x->fetch_object()){
